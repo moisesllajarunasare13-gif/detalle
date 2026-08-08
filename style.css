@@ -1,0 +1,391 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primario: #fffaf8;
+    --fondo: #ffe3ee;
+    --fondo-sobre: #ffe3ed;
+    --solapa-sobre: #ffc7db;
+    --cuerpo-sobre: #ffb3ce;
+    --sombra: rgba(255, 71, 126, 0.28);
+    --texto: #5c2740;
+    --corazon: #ff4d7e;
+    --dorado: #e3ac52;
+    --dorado-suave: #f6d9a3;
+}
+
+body {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 214, 231, 0.6), transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(255, 197, 220, 0.55), transparent 45%),
+        radial-gradient(circle at center, #fffdfc 0%, var(--fondo) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    font-family: "Cormorant Garamond", serif;
+}
+
+/* ---------- Decoración de fondo: corazones y destellos flotantes ---------- */
+.fondo-decorativo {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.flotante {
+    position: absolute;
+    bottom: -10%;
+    color: var(--corazon);
+    opacity: 0;
+    animation: subirFlotar 9s ease-in infinite;
+    user-select: none;
+}
+
+.corazon-flotante {
+    font-size: 22px;
+}
+
+.destello {
+    font-size: 16px;
+    color: var(--dorado);
+}
+
+@keyframes subirFlotar {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    12% {
+        opacity: 0.35;
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-50vh) rotate(12deg) scale(1);
+    }
+    88% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(-8deg) scale(0.9);
+        opacity: 0;
+    }
+}
+
+/* ---------- Título ---------- */
+h1 {
+    font-family: "Marck Script", cursive;
+    text-align: center;
+    font-size: 52px;
+    margin-bottom: 26px;
+    color: #c9366b;
+    text-shadow: 2px 2px 6px rgba(201, 54, 107, 0.15);
+    z-index: 2;
+    padding: 0 20px;
+    letter-spacing: 0.5px;
+    animation: apareceSuave 1s ease-out;
+}
+
+@keyframes apareceSuave {
+    from { opacity: 0; transform: translateY(-14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.contenedor {
+    width: 400px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: apareceSuave 1.2s ease-out;
+}
+
+/* ---------- Sobre ---------- */
+.envoltura-sobre {
+    position: relative;
+    background-color: var(--fondo-sobre);
+    box-shadow: 0 14px 34px var(--sombra), 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-radius: 15px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.envoltura-sobre:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px var(--sombra), 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.sobre {
+    position: relative;
+    width: 400px;
+    height: 300px;
+}
+
+.sobre::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    border-top: 180px solid var(--solapa-sobre);
+    border-right: 200px solid transparent;
+    border-left: 200px solid transparent;
+    transform-origin: top;
+    transition: all 0.5s ease-in-out 0.7s;
+    border-radius: 10px;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.06));
+}
+
+.solapa-derecha {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    background: linear-gradient(135deg, var(--cuerpo-sobre), #ff9fc0);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.solapa-izquierda {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    background: linear-gradient(225deg, var(--cuerpo-sobre), #ff9fc0);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* ---------- Carta ---------- */
+.carta {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primario);
+    text-align: center;
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.12);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform .5s ease-in-out;
+}
+
+.contenido {
+    font-family: "Cormorant Garamond", serif;
+    color: var(--texto);
+    text-align: left;
+    font-size: 15px;
+    line-height: 21px;
+    border: 1.5px solid var(--dorado-suave);
+    outline: 1px dashed var(--corazon);
+    outline-offset: -6px;
+    padding: 22px 18px;
+    height: 100%;
+    cursor: pointer;
+    overflow-y: scroll;
+    border-radius: 10px;
+    background:
+        radial-gradient(circle at top right, rgba(255, 210, 228, 0.35), transparent 55%),
+        #fffaf8;
+    position: relative;
+}
+
+.contenido strong {
+    color: #b5215a;
+}
+
+.contenido strong:first-child,
+.contenido > strong {
+    display: inline-block;
+    font-family: "Marck Script", cursive;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #c9366b;
+    margin-bottom: 6px;
+}
+
+.contenido em {
+    color: #b5215a;
+}
+
+.contenido p {
+    margin: 0;
+}
+
+/* ---------- Corazón / sello (cierra el sobre) ---------- */
+.corazon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #ff6f97, var(--corazon));
+    transform: translate(-50%, 0) rotate(45deg);
+    transition: transform 0.5s ease-in-out 1s, box-shadow 0.3s ease;
+    z-index: 999;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 71, 126, 0.45);
+    animation: latido 2.4s ease-in-out infinite;
+}
+
+.corazon::before,
+.corazon::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #ff6f97, var(--corazon));
+    border-radius: 100%;
+}
+
+.corazon:before {
+    top: -15px;
+}
+
+.corazon:after {
+    right: 15px;
+}
+
+@keyframes latido {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.12); }
+}
+
+.envoltura-sobre:hover .corazon {
+    box-shadow: 0 4px 16px rgba(255, 71, 126, 0.6);
+}
+
+/* ---------- Estados dinámicos ---------- */
+.abierto .sobre::before {
+    transform: rotateX(180deg);
+    z-index: 0;
+}
+
+.abierto .corazon {
+    transform: rotate(90deg) scale(0.8);
+    opacity: 0.8;
+    transition-delay: 0.4s;
+    animation: none;
+}
+
+.carta.mostrar-carta {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+}
+
+.carta.cerrando-carta {
+    transform: translateY(-290px);
+    transition: transform .5s ease-in-out;
+}
+
+.carta.abierta {
+    z-index: 10000;
+}
+
+.envoltura-sobre.desactivar-sobre .sobre::before {
+    pointer-events: none;
+}
+
+/* ---------- Pista de interacción ---------- */
+.pista {
+    margin-top: 16px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 15px;
+    color: #b5215a;
+    opacity: 0.75;
+    animation: parpadeoSuave 2.6s ease-in-out infinite;
+}
+
+@keyframes parpadeoSuave {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 0.85; }
+}
+
+.envoltura-sobre.abierto ~ .pista,
+.contenedor:has(.abierto) .pista {
+    display: none;
+}
+
+/* ---------- Scroll personalizado ---------- */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--solapa-sobre);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--corazon);
+}
+
+/* ---------- Chispas al abrir la carta ---------- */
+.chispa {
+    position: absolute;
+    pointer-events: none;
+    color: var(--corazon);
+    font-size: 14px;
+    opacity: 0;
+    z-index: 10001;
+    animation: chispaSubir 1.1s ease-out forwards;
+}
+
+@keyframes chispaSubir {
+    0% {
+        opacity: 0;
+        transform: translateY(0) scale(0.6);
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-70px) scale(1.1);
+    }
+}
+
+/* ---------- Vista celular ---------- */
+@media screen and (max-width: 400px) {
+    .contenedor {
+        width: 300px;
+    }
+
+    .sobre {
+        width: 300px;
+        height: 250px;
+    }
+
+    .sobre::before {
+        border-top: 150px solid var(--solapa-sobre);
+        border-right: 150px solid transparent;
+        border-left: 150px solid transparent;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .contenido {
+        font-size: 14px;
+    }
+}
